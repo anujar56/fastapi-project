@@ -1,8 +1,11 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request
+from fastapi.templates import Jinja2Templates
+
 
 # Create an instance of the FastAPI application
 app = FastAPI()
+
+templates = Jinja2Templates(directory="templates")
 
 # Define a route for the root endpoint
 @app.get("/")
@@ -21,13 +24,8 @@ post : list[dict] = [
 def get_posts():
     return post 
 
-
-# Define a route for retrieving posts in HTML format
-@app.get("/posts/html", response_class=HTMLResponse)
-def get_posts_html():
-    html_content = "<html><body><h1>Posts</h1><ul>"
-    for p in post:
-        html_content += f"<li><strong>{p['title']}</strong>: {p['content']}</li>"
-    html_content += "</ul></body></html>"
-    return HTMLResponse(content=html_content, status_code=200)
+@app.get("/",include_in_schema=False)
+@app.get("/post",include_in_schema=False)
+def get_post(request: Request):
+    return templates.TemplateResponse(request,"home.html")
 
