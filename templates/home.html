@@ -1,14 +1,9 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My First Webpage</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>Hello World</h1>
     {% for post in posts %}
     <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
     {% endfor %}
-</body>
-</html>   
+{% endblock content %}
