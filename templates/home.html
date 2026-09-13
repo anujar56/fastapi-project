@@ -6,6 +6,9 @@
 </head>
 <body>
     <h1>Hello World</h1>
-    <p>This is a simple HTML page.</p>
+    {% for post in posts %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    {% endfor %}
 </body>
 </html>   

@@ -27,5 +27,5 @@ def get_posts():
 @app.get("/",include_in_schema=False)
 @app.get("/post",include_in_schema=False)
 def get_post(request: Request):
-    return templates.TemplateResponse(request,"home.html")
+    return templates.TemplateResponse(request,"home.html",{"posts": post})
 
