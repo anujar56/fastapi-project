@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.templates import Jinja2Templates
+from fastapi.templating import Jinja2Templates
 
 
 # Create an instance of the FastAPI application
