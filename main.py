@@ -22,6 +22,7 @@ posts: list[dict] = [
 async def home(request: Request):
     # Pass the request and posts to the template
     return templates.TemplateResponse(
+        request,    
         "home.html",
-        {"request": request, "posts": posts}
+        {"title": home, "posts": posts}
     )
