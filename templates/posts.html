@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Home — My Blog{% endblock %}
+
+{% block content %}
+
+<section class="post-list">
+      <article class="card">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-content">{{ post.content }}</p>
+        <a href="/post/{{ post.id }}" class="card-link">Read more →</a>
+      </article>
+{% endblock %}
