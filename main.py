@@ -54,6 +54,14 @@ def api_get_post(post_id: int):
             return post 
     raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Post Not Found")
 
+
+# ================Exception handlers for API and HTML responses========================= 
+
+#Whenever an HTTPException is raised, general_http_exception_handler will be called. It checks if the request is for an API endpoint or a regular HTML page and returns the appropriate response.
+#
+#Normally, FastAPI catches that and sends back a JSON error response. But you can override that behaviour with @app.exception_handler(...).
+# This decorator says: “Whenever a StarletteHTTPException is raised anywhere in this app, call the function below to handle it.”
+
 @app.exception_handler(StarletteHTTPException)
 def general_http_exception_handler(request: Request, exception: StarletteHTTPException):
     message = (
@@ -79,6 +87,9 @@ def general_http_exception_handler(request: Request, exception: StarletteHTTPExc
         status_code=exception.status_code,
     )
 
+#This handler catches RequestValidationError exceptions, which occur when the request data doesn't match the expected format or type. It checks if the request is for an API endpoint or a regular HTML page and returns the appropriate response.
+#Example : /api/posts/abc will raise a RequestValidationError because abc is not an integer, which is expected for post_id. The handler will return a JSON response for API requests and an HTML error page for regular requests.
+
 
 @app.exception_handler(RequestValidationError)
 def validation_exception_handler(request: Request, exception: RequestValidationError):
@@ -99,5 +110,5 @@ def validation_exception_handler(request: Request, exception: RequestValidationE
         status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
     )
 
-
+# ==================================================================================== 
 
