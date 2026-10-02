@@ -21,6 +21,8 @@ posts: list[dict] = [
     {"id": 3, "title": "Third Post", "content": "This is the content of the third post."},
 ]
 
+# ================Base url========================= 
+
 #app is the FastAPI application object. 
 #.get means the HTTP method is GET. GET is the normal method used when you type a URL into your browser.
 @app.get("/")
@@ -35,6 +37,8 @@ async def home(request: Request):
         {"title": home, "posts": posts}
         #A dictionary {"post": post, "title": title} — this is the context.It passes variables into the template so the HTML can use them.
     )
+
+# ================get /posts/{id}=====================
 @app.get("/posts/{post_id}")
 def get_post(request: Request,post_id: int):
 
@@ -44,6 +48,8 @@ def get_post(request: Request,post_id: int):
             return templates.TemplateResponse(request,"posts.html",{"post": post} )
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
 
+
+# ================post api/posts/=====================
 @app.post(
     "/api/posts",
     response_model=PostResponse,
@@ -61,10 +67,14 @@ def create_post(post: PostCreate):
     posts.append(new_post)
     return new_post
 
+# ================get /api/posts=====================
 
 @app.get("/api/posts")
 def api_post():
     return posts
+
+
+# ================get /api/posts/{id}=====================
 
 @app.get("/api/posts/{post_id}")
 def api_get_post(post_id: int):
