@@ -18,7 +18,9 @@
       <article class="card">
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-content">{{ post.content }}</p>
-        <a href="/posts/{{ post.id }}" class="card-link">Read more →</a>
+        <div class="card-footer">
+          <a href="/posts/{{ post.id }}" class="card-link">Read more →</a>
+        </div>
       </article>
     {% endfor %}
   </section>
